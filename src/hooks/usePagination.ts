@@ -36,7 +36,7 @@ const usePagination = <T>(apiUrl: string, pageSize: number) => {
       currentPage * pageSize
     ),
     currentPage,
-    hasNextPage: currentPage !== totalPages,
+    hasNextPage: currentPage < totalPages,
     hasPrevPage: currentPage > 1,
     goToNextPage,
     goToPrevPage,

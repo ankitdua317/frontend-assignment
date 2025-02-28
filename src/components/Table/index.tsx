@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import usePagination from "../../hooks/usePagination";
 import { TableProps } from "../../models/Table";
-import Spinner from "../Spinner/index.tsx";
+import Spinner from "../Spinner";
 import styles from "./table.module.css";
 
 const Table = <T,>({ apiUrl, pageSize, columns }: TableProps<T>) => {
