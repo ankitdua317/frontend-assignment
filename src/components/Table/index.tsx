@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styles from "./table.module.css";
 import usePagination from "../../hooks/usePagination";
 import { TableProps } from "../../models/Table";
+import styles from "./table.module.css";
 
 const Table = <T,>({ apiUrl, pageSize, columns }: TableProps<T>) => {
   const {
@@ -44,11 +44,13 @@ const Table = <T,>({ apiUrl, pageSize, columns }: TableProps<T>) => {
 
   return (
     <div className={styles.tableContainer}>
-      <table className={styles.table}>
+      <table className={styles.table} aria-label="Kickstarter Projects">
         <thead>
           <tr>
             {columns.map((col) => (
-              <th key={col.accessor as string}>{col.header}</th>
+              <th key={col.accessor as string} scope="col">
+                {col.header}
+              </th>
             ))}
           </tr>
         </thead>
@@ -66,8 +68,16 @@ const Table = <T,>({ apiUrl, pageSize, columns }: TableProps<T>) => {
       </table>
 
       {/* Pagination UI */}
-      <div className={styles.pagination}>
-        <button onClick={goToPrevPage} disabled={!hasPrevPage}>
+      <nav
+        className={styles.pagination}
+        role="navigation"
+        aria-label="Pagination Navigation"
+      >
+        <button
+          onClick={goToPrevPage}
+          disabled={!hasPrevPage}
+          aria-label="Go to previous page"
+        >
           Previous
         </button>
 
@@ -78,15 +88,21 @@ const Table = <T,>({ apiUrl, pageSize, columns }: TableProps<T>) => {
               className={currentPage === page ? styles.activePage : ""}
               onClick={() => typeof page === "number" && gotToPage(page)}
               disabled={page === "..."}
+              aria-label={typeof page === "number" ? `Go to page ${page}` : ""}
+              aria-current={currentPage === page ? "page" : undefined}
             >
               {page}
             </button>
           ))}
 
-        <button onClick={goToNextPage} disabled={!hasNextPage}>
+        <button
+          onClick={goToNextPage}
+          disabled={!hasNextPage}
+          aria-label="Go to next page"
+        >
           Next
         </button>
-      </div>
+      </nav>
     </div>
   );
 };

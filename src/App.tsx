@@ -3,6 +3,7 @@ import { GET_PROJECTS } from "./constants/url";
 import { PAGE_SIZE } from "./constants/project";
 import Project from "./models/Project";
 import { ColumnConfig } from "./models/Table";
+import "./App.css";
 
 const columns: ColumnConfig<Project>[] = [
   { header: "S.No.", accessor: "s.no" },
@@ -12,14 +13,19 @@ const columns: ColumnConfig<Project>[] = [
 
 const App = () => {
   return (
-    <div>
-      <h1>Highly-Rated Kickstarter Projects</h1>
-      <Table<Project>
-        apiUrl={GET_PROJECTS}
-        pageSize={PAGE_SIZE}
-        columns={columns}
-      />
-    </div>
+    <main>
+      <h1 id="page-title" className="appTitle">
+        Highly-Rated Kickstarter Projects
+      </h1>
+
+      <section aria-labelledby="page-title">
+        <Table<Project>
+          apiUrl={GET_PROJECTS}
+          pageSize={PAGE_SIZE}
+          columns={columns}
+        />
+      </section>
+    </main>
   );
 };
 
